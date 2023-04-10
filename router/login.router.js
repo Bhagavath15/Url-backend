@@ -36,7 +36,7 @@ router.post("/login", async function (request, response) {
 });
 
 router.post("/signup", async function (request, response) {
-    const { username, password } = request.body;
+    const { username, password, firstname, lastname } = request.body;
 
     const userfromdb = await getuserbyname(username)
 
@@ -54,7 +54,7 @@ router.post("/signup", async function (request, response) {
         // console.log(data);
 
         // db.userid.insertmany(data)
-        const result = await hashpass(username, hashpassword)
+        const result = await hashpass(username, hashpassword, firstname, lastname)
         response.send(result);
     }
 

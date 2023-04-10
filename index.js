@@ -4,6 +4,9 @@ import { MongoClient } from 'mongodb'
 import * as dotenv from 'dotenv'
 import cors from "cors";
 import shortid from "shortid";
+import signinRouter from './router/login.router.js';
+import emailRouter from './router/route.js';
+import { auth } from "./middleware/auth.js";
 
 dotenv.config()
 const app = express();
@@ -64,5 +67,7 @@ app.get('/:shortId', async (req, res) => {
     res.redirect(url.originalUrl);
 });
 
+app.use("/", signinRouter);
+app.use("/", emailRouter);
 
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));
