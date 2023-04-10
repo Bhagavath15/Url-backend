@@ -1,3 +1,4 @@
+
 import express from "express"; // "type": "module"
 import { MongoClient } from 'mongodb'
 import * as dotenv from 'dotenv'
@@ -7,12 +8,9 @@ import shortid from "shortid";
 dotenv.config()
 const app = express();
 
-// console.log(process.env.mongo_url)
-
+const MONGO_URL = (process.env.MONGO_URL)
 const PORT = process.env.PORT;
-// const PORT = 2207
-const MONGO_URL = process.env.MONGO_URL
-// const mongo_url =(process.env.mongo_url)
+
 export const client = new MongoClient(MONGO_URL);
 await client.connect();
 console.log('mongo is connected!!');
@@ -25,11 +23,9 @@ app.get("/", function (request, response) {
 });
 
 
-app.post('/shorten', async (req, res) => {
+app.post('/api/shorten', async (req, res) => {
     const { url } = req.body;
     if (url) {
-
-
         // Generate short ID
         const shortId = shortid.generate();
 
@@ -67,7 +63,6 @@ app.get('/:shortId', async (req, res) => {
     // Redirect to original URL
     res.redirect(url.originalUrl);
 });
-
 
 
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));
