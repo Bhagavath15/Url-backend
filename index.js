@@ -35,14 +35,14 @@ app.post('/api/shorten', async (req, res) => {
             .collection("urlshortner")
             .insertOne({
                 originalUrl: url,
-                shortUrl: `http://localhost:${PORT}/${shortId}`,
+                shortUrl: `https://url-backend-phi.vercel.app/${shortId}`,
             });
         // await newUrl.save();
 
         // Return shortened URL
         res.json({
             originalUrl: url,
-            shortUrl: `http://localhost:${PORT}/${shortId}`,
+            shortUrl: `https://url-backend-phi.vercel.app/${shortId}`,
         });
     } else { res.status(400).json({ message: 'url not defind' }) }
 });
@@ -54,7 +54,7 @@ app.get('/:shortId', async (req, res) => {
     const url = await client
         .db("urlshortner")
         .collection("urlshortner")
-        .findOne({ shortUrl: `http://localhost:${PORT}/${shortId}` });
+        .findOne({ shortUrl: `https://url-backend-phi.vercel.app/${shortId}` });
 
     if (!url) {
         return res.status(404).send('URL not found');
